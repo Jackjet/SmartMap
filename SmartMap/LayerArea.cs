@@ -63,7 +63,8 @@ namespace Smart.Map
         /// </summary>
         /// <param name="fileName">保存文件名称</param>
         /// <param name="format">图片格式</param>
-        public void Compose(string fileName, ImageFormat format)
+        /// <param name="zeroPoint">地图0点坐标位置</param>
+        public void Compose(string fileName, ImageFormat format, ZeroPoint zeroPoint)
         {
             float xCount = this.End.X - this.Start.X;
             float yCount = this.End.Y - this.Start.Y;
@@ -98,7 +99,22 @@ namespace Smart.Map
                     int offset = VerticalSizeCount * i + j;
 
                     //将碎片绘制到内存
-                    tempGraphics.DrawImage(MapFragments[offset].Image, point.X, point.Y);
+                    //绘图0点坐标左上角；地图0点坐标左下角
+                    switch (zeroPoint)
+                    {
+                        case ZeroPoint.LeftBottom:
+                            tempGraphics.DrawImage(
+                                MapFragments[offset].Image,
+                                point.X,
+                                AreaSize.Height - point.Y - this.FragmentSize.Height);
+                            break;
+                        case ZeroPoint.LeftTop:
+                            tempGraphics.DrawImage(
+                                MapFragments[offset].Image,
+                                point.X,
+                                point.Y);
+                            break;
+                    }
                 }
             }
 
@@ -143,10 +159,11 @@ namespace Smart.Map
                 Height = VerticalSizeCount * (int)this.FragmentSize.Height
             };
 
-            //行循环
+            //圆点坐标：左下角
+            //行单位总数循环
             for (int i = 0; i < HorizontalSizeCount; i++)
             {
-                //列循环
+                //列单位总数循环
                 for (int j = 0; j < VerticalSizeCount; j++)
                 {
                     #region 构建碎片请求Url地址

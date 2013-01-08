@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Web
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMap", "SmartMap\SmartMap.csproj", "{7F1D92DA-C761-4996-A00F-CFDADE2B0E45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMapTest", "SmartMapTest\SmartMapTest.csproj", "{93A102F0-5B50-4942-AD85-3F1FCB821D6C}"

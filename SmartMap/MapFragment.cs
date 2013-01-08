@@ -18,6 +18,14 @@ namespace Smart.Map
         {
             this.FragmentSize = new Size() { Width = 128, Height = 128 };
             this.Format = ImageFormat.Png;
+
+            this.SavePath = AppDomain.CurrentDomain.BaseDirectory + "\\images";
+            this.FileName = string.Format("{0}.{1}", Guid.NewGuid().ToString(), this.Format.ToString());
+
+            if (!Directory.Exists(this.SavePath))
+            {
+                Directory.CreateDirectory(this.SavePath);
+            }
         }
 
         /// <summary>
@@ -51,11 +59,6 @@ namespace Smart.Map
         public ImageFormat Format { get; set; }
 
         /// <summary>
-        /// 图片
-        /// </summary>
-        public Image Image { get; set; }
-
-        /// <summary>
         /// 下载图片
         /// </summary>
         public void Download()
@@ -64,14 +67,19 @@ namespace Smart.Map
             HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(this.DownloadUrl);
             request.Method = "GET";
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream stream = response.GetResponseStream();
 
-            Bitmap map = new Bitmap(stream);
-            
-            Image = map;
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream stream = response.GetResponseStream();
 
-            stream.Close();
-            response.Close();
+                Bitmap map = new Bitmap(stream);
+                map.Save(this.SavePath + "\\" + this.FileName, this.Format);
+
+                map.Dispose();
+                stream.Close();
+                stream.Dispose();
+                response.Close();
+            }
         }
     }
 }

@@ -12,13 +12,13 @@ namespace SmartMapTest
         [TestMethod]
         public void Download()
         {
-            layerArea.Start = new Smart.Map.Vectory2D() { X = 10, Y = 10 };
-            layerArea.End = new Smart.Map.Vectory2D() { X = 20, Y = 20 };
-            layerArea.FragmentSize = new Smart.Map.Size() { Width = 128, Height = 128 };
-            layerArea.UrlTemplate = "{POINTX}_{POINTY}";
-            layerArea.Download();
+            //layerArea.Start = new Smart.Map.Vectory2D() { X = 10, Y = 10 };
+            //layerArea.End = new Smart.Map.Vectory2D() { X = 20, Y = 20 };
+            //layerArea.FragmentSize = new Smart.Map.Size() { Width = 128, Height = 128 };
+            //layerArea.UrlTemplate = "{POINTX}_{POINTY}";
+            //layerArea.Download();
 
-            Assert.AreEqual(layerArea.MapFragments.Count, 0);
+            //Assert.AreEqual(layerArea.MapFragments.Count, 0);
         }
 
         [TestMethod]
@@ -131,7 +131,7 @@ namespace SmartMapTest
             //layerArea.End = new Smart.Map.Vectory2D() { X = 106939, Y = 20113 };
             //layerArea.UrlTemplate = "http://tile0.tianditu.com/DataServer?T=tdt_vip_img_120627_dyd&X={POINTX}&Y={POINTY}&L=17";
             //layerArea.Download();
-            //layerArea.Compose("c:\\cache\\天地图卫星地图.Png", ImageFormat.Png, Smart.Map.ZeroPoint.LeftTop);
+            //layerArea.Compose("c:\\chache\\天地图卫星地图.Png", ImageFormat.Png, Smart.Map.ZeroPoint.LeftTop);
 
             //天地图地形地图
             //layerArea.Start = new Smart.Map.Vectory2D() { X = 6650, Y = 1247 };
@@ -140,6 +140,28 @@ namespace SmartMapTest
             //layerArea.Download();
             //layerArea.Compose("c:\\cache\\天地图地形地图.Png", ImageFormat.Png, Smart.Map.ZeroPoint.LeftTop);
 
+            #endregion
+
+            #region 济源市虎岭产业集聚区
+            //天地图卫星地图
+            //layerArea.Start = new Smart.Map.Vectory2D() { X = 106936, Y = 20111 };
+            //layerArea.End = new Smart.Map.Vectory2D() { X = 106939, Y = 20113 };
+            //layerArea.UrlTemplate = "http://tile0.tianditu.com/DataServer?T=tdt_vip_img_120627_dyd&X={POINTX}&Y={POINTY}&L=17";
+            //layerArea.Download();
+            //layerArea.Compose(@"E:\三维统计地理信息系统\济源市虎岭镇三维产业集聚区\卫星地图\天地图卫星地图.Png", 
+            //    ImageFormat.Png, 
+            //    Smart.Map.ZeroPoint.LeftTop);
+
+            //谷歌卫星地图
+            layerArea.FragmentSize = new Smart.Map.Size() { Width = 256, Height = 256 };
+            layerArea.Start = new Smart.Map.Vectory2D() { X = 425986, Y = 207502 };
+            layerArea.End = new Smart.Map.Vectory2D() { X = 426107, Y = 207641 };
+            //layerArea.End = new Smart.Map.Vectory2D() { X = 425989, Y = 207509 };
+            layerArea.UrlTemplate = "http://mt0.google.cn/vt/lyrs=s@123&hl=zh-CN&gl=CN&src=app&x={POINTX}&y={POINTY}&z=19&s=Galil";
+            layerArea.Download();
+            layerArea.Compose(@"E:\三维统计地理信息系统\济源市虎岭镇三维产业集聚区\卫星地图\谷歌卫星地图.Png",
+                ImageFormat.Png,
+                Smart.Map.ZeroPoint.LeftTop);
             #endregion
         }
     }

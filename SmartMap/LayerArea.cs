@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 
 namespace Smart.Map
 {
@@ -98,28 +99,41 @@ namespace Smart.Map
                     //得到线性内存表的偏移量公式:偏移量=每行列数*当前行+当前列
                     int offset = VerticalSizeCount * i + j;
 
-                    //将碎片绘制到内存
-                    //绘图0点坐标左上角；地图0点坐标左下角
-                    switch (zeroPoint)
+                    //从缓存碎片拼接图片
+                    string cacheMapPath = MapFragments[offset].SavePath + "\\" + MapFragments[offset].FileName;
+                    using (Bitmap cacheMap = new Bitmap(cacheMapPath))
                     {
-                        case ZeroPoint.LeftBottom:
-                            tempGraphics.DrawImage(
-                                MapFragments[offset].Image,
-                                point.X,
-                                AreaSize.Height - point.Y - this.FragmentSize.Height);
-                            break;
-                        case ZeroPoint.LeftTop:
-                            tempGraphics.DrawImage(
-                                MapFragments[offset].Image,
-                                point.X,
-                                point.Y);
-                            break;
+                        //将碎片绘制到内存
+                        //绘图0点坐标左上角；地图0点坐标左下角
+                        switch (zeroPoint)
+                        {
+                            case ZeroPoint.LeftBottom:
+                                tempGraphics.DrawImage(
+                                    //MapFragments[offset].Image,
+                                    cacheMap,
+                                    point.X,
+                                    AreaSize.Height - point.Y - this.FragmentSize.Height);
+                                break;
+                            case ZeroPoint.LeftTop:
+                                tempGraphics.DrawImage(
+                                    //MapFragments[offset].Image,
+                                    cacheMap,
+                                    point.X,
+                                    point.Y);
+                                break;
+                        }
                     }
                 }
             }
 
             //保存
             tempGraphics.Dispose();
+
+            FileInfo fileInfo = new FileInfo(fileName);
+            if (!Directory.Exists(fileInfo.DirectoryName))
+            {
+                Directory.CreateDirectory(fileInfo.DirectoryName);
+            }
             map.Save(fileName, format);
         }
 
@@ -168,7 +182,6 @@ namespace Smart.Map
                 {
                     #region 构建碎片请求Url地址
                     MapFragment fragment = new MapFragment();
-                    fragment.FileName = Guid.NewGuid().ToString();
                     fragment.FragmentSize = this.FragmentSize;
 
                     float x = 0;

@@ -8,19 +8,7 @@ namespace SmartMapTest
     public class LayerAreaTest
     {
         Smart.Map.LayerArea layerArea = new Smart.Map.LayerArea();
-
-        [TestMethod]
-        public void Download()
-        {
-            //layerArea.Start = new Smart.Map.Vectory2D() { X = 10, Y = 10 };
-            //layerArea.End = new Smart.Map.Vectory2D() { X = 20, Y = 20 };
-            //layerArea.FragmentSize = new Smart.Map.Size() { Width = 128, Height = 128 };
-            //layerArea.UrlTemplate = "{POINTX}_{POINTY}";
-            //layerArea.Download();
-
-            //Assert.AreEqual(layerArea.MapFragments.Count, 0);
-        }
-
+        
         [TestMethod]
         public void Compose()
         {
@@ -153,13 +141,28 @@ namespace SmartMapTest
             //    Smart.Map.ZeroPoint.LeftTop);
 
             //谷歌卫星地图
-            layerArea.FragmentSize = new Smart.Map.Size() { Width = 256, Height = 256 };
-            layerArea.Start = new Smart.Map.Vectory2D() { X = 425986, Y = 207502 };
-            layerArea.End = new Smart.Map.Vectory2D() { X = 426107, Y = 207641 };
+            //layerArea.FragmentSize = new Smart.Map.Size() { Width = 256, Height = 256 };
+            //layerArea.Start = new Smart.Map.Vectory2D() { X = 425986, Y = 207502 };
+            //layerArea.End = new Smart.Map.Vectory2D() { X = 426107, Y = 207641 };
             //layerArea.End = new Smart.Map.Vectory2D() { X = 425989, Y = 207509 };
-            layerArea.UrlTemplate = "http://mt0.google.cn/vt/lyrs=s@123&hl=zh-CN&gl=CN&src=app&x={POINTX}&y={POINTY}&z=19&s=Galil";
+            //layerArea.UrlTemplate = "http://mt0.google.cn/vt/lyrs=s@123&hl=zh-CN&gl=CN&src=app&x={POINTX}&y={POINTY}&z=19&s=Galil";
+            //layerArea.Download();
+            //layerArea.Compose(@"E:\三维统计地理信息系统\济源市虎岭镇三维产业集聚区\卫星地图\谷歌卫星地图.Png",
+            //    ImageFormat.Png,
+            //    Smart.Map.ZeroPoint.LeftTop);
+            #endregion
+
+            #region 许昌市尚集镇
+            //天地图卫星地图
+            /*
+            http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X=213945&Y=40680&L=18
+            http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X=213993&Y=40702&L=18
+            */
+            layerArea.Start = new Smart.Map.Vectory2D() { X = 213945, Y = 40680 };
+            layerArea.End = new Smart.Map.Vectory2D() { X = 213993, Y = 40702 };
+            layerArea.UrlTemplate = "http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X={POINTX}&Y={POINTY}&L=18";
             layerArea.Download();
-            layerArea.Compose(@"E:\三维统计地理信息系统\济源市虎岭镇三维产业集聚区\卫星地图\谷歌卫星地图.Png",
+            layerArea.Compose(@"E:\三维统计地理信息系统\许昌市尚集镇三维产业集聚区\天地图卫星地图.Png",
                 ImageFormat.Png,
                 Smart.Map.ZeroPoint.LeftTop);
             #endregion

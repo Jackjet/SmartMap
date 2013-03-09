@@ -7,11 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Smart.Map;
+using System.Drawing.Imaging;
 
 namespace Smart.Map.App
 {
     public partial class frmMain : Form
     {
+        Smart.Map.LayerArea layerArea = new Smart.Map.LayerArea();
+
         public frmMain()
         {
             InitializeComponent();
@@ -34,7 +38,34 @@ namespace Smart.Map.App
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+            layerArea.UrlTemplate = cbxGisServerUrl.Text;
+            layerArea.FragmentSize = new Smart.Map.Size() { Width = (float)numImageSize.Value, Height = (float)numImageSize.Value };
 
+            layerArea.Start = new Smart.Map.Vectory2D()
+            {
+                X = (float)numStartPointX.Value,
+                Y = (float)numStartPointY.Value
+            };
+            layerArea.End = new Smart.Map.Vectory2D()
+            {
+                X = (float)numEndPointX.Value,
+                Y = (float)numEndPointY.Value
+            };
+
+            layerArea.Download(txtCachePath.Text);
+
+            string filename = string.Format("{0}\\{1}.{2}",
+                txtSavePath.Text,
+                Guid.NewGuid().ToString(),
+                ImageFormat.Png);
+            if (cbxZorePoint.Text == "左上角")
+            {
+                layerArea.Compose(filename, ImageFormat.Png, Smart.Map.ZeroPoint.LeftTop);
+            }
+            else
+            {
+                layerArea.Compose(filename, ImageFormat.Png, Smart.Map.ZeroPoint.LeftBottom);
+            }
         }
 
         private void btnClearCache_Click(object sender, EventArgs e)

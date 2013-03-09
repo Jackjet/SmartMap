@@ -16,7 +16,7 @@ namespace Smart.Map
     {
         public MapFragment()
         {
-            this.FragmentSize = new Size() { Width = 128, Height = 128 };
+            this.FragmentSize = new Size() { Width = 256, Height = 256 };
             this.Format = ImageFormat.Png;
 
             this.SavePath = AppDomain.CurrentDomain.BaseDirectory + "\\images";
@@ -63,22 +63,33 @@ namespace Smart.Map
         /// </summary>
         public void Download()
         {
-            //http下载图片
-            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(this.DownloadUrl);
-            request.Method = "GET";
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-            if (response.StatusCode == HttpStatusCode.OK)
+            string filename = this.SavePath + "\\" + this.FileName;
+            if (!File.Exists(filename))
             {
-                Stream stream = response.GetResponseStream();
+                HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(this.DownloadUrl);
+                request.Method = "GET";
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 
-                Bitmap map = new Bitmap(stream);
-                map.Save(this.SavePath + "\\" + this.FileName, this.Format);
+                if (response.StatusCode == HttpStatusCode.OK && response.ContentLength > 0)
+                {
+                    Stream stream = response.GetResponseStream();
 
-                map.Dispose();
-                stream.Close();
-                stream.Dispose();
-                response.Close();
+                    Bitmap map = new Bitmap(stream);
+                    map.Save(filename, this.Format);
+
+                    map.Dispose();
+                    stream.Close();
+                    stream.Dispose();
+                    response.Close();
+                }
+                else
+                {
+                    //创建一张空白图片
+                    Bitmap map = new Bitmap((int)this.FragmentSize.Width, (int)this.FragmentSize.Height);
+                    map.Save(filename, this.Format);
+                    map.Dispose();
+                    response.Close();
+                }
             }
         }
     }

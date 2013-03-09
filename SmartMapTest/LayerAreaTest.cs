@@ -131,14 +131,18 @@ namespace SmartMapTest
             #endregion
 
             #region 济源市虎岭产业集聚区
-            //天地图卫星地图
-            //layerArea.Start = new Smart.Map.Vectory2D() { X = 106936, Y = 20111 };
-            //layerArea.End = new Smart.Map.Vectory2D() { X = 106939, Y = 20113 };
-            //layerArea.UrlTemplate = "http://tile0.tianditu.com/DataServer?T=tdt_vip_img_120627_dyd&X={POINTX}&Y={POINTY}&L=17";
+            /*
+             * http://tile6.tianditu.com/tdt/DataServer?T=t_img_271224&X=212998&Y=39984&L=18
+             * 
+             */
+            //天地图卫星地图 济源-虎岭
+            layerArea.Start = new Smart.Map.Vectory2D() { X = 212998, Y = 39984 };
+            layerArea.End = new Smart.Map.Vectory2D() { X = 213085, Y = 40030 };
+            layerArea.UrlTemplate = "http://tile6.tianditu.com/tdt/DataServer?T=t_img_271224&X={POINTX}&Y={POINTY}&L=18";
             //layerArea.Download();
-            //layerArea.Compose(@"E:\三维统计地理信息系统\济源市虎岭镇三维产业集聚区\卫星地图\天地图卫星地图.Png", 
-            //    ImageFormat.Png, 
-            //    Smart.Map.ZeroPoint.LeftTop);
+            layerArea.Compose(@"E:\三维统计地理信息系统\济源市虎岭镇三维产业集聚区\卫星地图\天地图卫星地图.Png",
+                ImageFormat.Png,
+                Smart.Map.ZeroPoint.LeftTop);
 
             //谷歌卫星地图
             //layerArea.FragmentSize = new Smart.Map.Size() { Width = 256, Height = 256 };
@@ -158,13 +162,13 @@ namespace SmartMapTest
             http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X=213945&Y=40680&L=18
             http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X=213993&Y=40702&L=18
             */
-            layerArea.Start = new Smart.Map.Vectory2D() { X = 213945, Y = 40680 };
-            layerArea.End = new Smart.Map.Vectory2D() { X = 213993, Y = 40702 };
-            layerArea.UrlTemplate = "http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X={POINTX}&Y={POINTY}&L=18";
-            layerArea.Download();
-            layerArea.Compose(@"E:\三维统计地理信息系统\许昌市尚集镇三维产业集聚区\天地图卫星地图.Png",
-                ImageFormat.Png,
-                Smart.Map.ZeroPoint.LeftTop);
+            //layerArea.Start = new Smart.Map.Vectory2D() { X = 213945, Y = 40680 };
+            //layerArea.End = new Smart.Map.Vectory2D() { X = 213993, Y = 40702 };
+            //layerArea.UrlTemplate = "http://tile1.tianditu.com/tdt/DataServer?T=t_img_271224&X={POINTX}&Y={POINTY}&L=18";
+            //layerArea.Download();
+            //layerArea.Compose(@"E:\三维统计地理信息系统\许昌市尚集镇三维产业集聚区\天地图卫星地图.Png",
+            //    ImageFormat.Png,
+            //    Smart.Map.ZeroPoint.LeftTop);
             #endregion
         }
     }

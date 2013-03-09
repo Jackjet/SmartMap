@@ -140,10 +140,15 @@ namespace Smart.Map
         /// <summary>
         /// 下载图片
         /// </summary>
-        public void Download()
+        public void Download(string savepath)
         {
+            if (!Directory.Exists(savepath))
+            {
+                Directory.CreateDirectory(savepath);
+            }
+
             //构建碎片
-            BindFragments();
+            BindFragments(savepath);
 
             foreach (MapFragment map in MapFragments)
             {
@@ -155,7 +160,7 @@ namespace Smart.Map
         /// <summary>
         /// 构建碎片
         /// </summary>
-        private void BindFragments()
+        private void BindFragments(string savepath)
         {
             this.MapFragments = new List<MapFragment>();
             float xCount = this.End.X - this.Start.X;
@@ -216,6 +221,11 @@ namespace Smart.Map
                     tempUrlTemplate = tempUrlTemplate.Replace("{POINTX}", x.ToString());
                     tempUrlTemplate = tempUrlTemplate.Replace("{POINTY}", y.ToString());
                     fragment.DownloadUrl = tempUrlTemplate;
+
+                    /*瓦片图片索引文件名称*/
+                    fragment.Format = ImageFormat.Png;
+                    fragment.FileName = string.Format("{0}-{1}.{2}", x.ToString(), y.ToString(), fragment.Format.ToString());
+                    fragment.SavePath = savepath;
 
                     this.MapFragments.Add(fragment);
                     #endregion

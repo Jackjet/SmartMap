@@ -101,7 +101,6 @@
             // 
             // cbxZorePoint
             // 
-            this.cbxZorePoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxZorePoint.FormattingEnabled = true;
             this.cbxZorePoint.Items.AddRange(new object[] {
             "左上角",
@@ -110,6 +109,7 @@
             this.cbxZorePoint.Name = "cbxZorePoint";
             this.cbxZorePoint.Size = new System.Drawing.Size(134, 20);
             this.cbxZorePoint.TabIndex = 7;
+            this.cbxZorePoint.Text = "左上角";
             // 
             // label9
             // 
@@ -167,7 +167,7 @@
             this.numEndPointY.Size = new System.Drawing.Size(124, 21);
             this.numEndPointY.TabIndex = 5;
             this.numEndPointY.Value = new decimal(new int[] {
-            10,
+            40030,
             0,
             0,
             0});
@@ -193,7 +193,7 @@
             this.numEndPointX.Size = new System.Drawing.Size(124, 21);
             this.numEndPointX.TabIndex = 4;
             this.numEndPointX.Value = new decimal(new int[] {
-            10,
+            213085,
             0,
             0,
             0});
@@ -218,6 +218,11 @@
             this.numStartPointY.Name = "numStartPointY";
             this.numStartPointY.Size = new System.Drawing.Size(124, 21);
             this.numStartPointY.TabIndex = 3;
+            this.numStartPointY.Value = new decimal(new int[] {
+            39984,
+            0,
+            0,
+            0});
             // 
             // label4
             // 
@@ -239,6 +244,11 @@
             this.numStartPointX.Name = "numStartPointX";
             this.numStartPointX.Size = new System.Drawing.Size(124, 21);
             this.numStartPointX.TabIndex = 2;
+            this.numStartPointX.Value = new decimal(new int[] {
+            212998,
+            0,
+            0,
+            0});
             // 
             // label3
             // 
@@ -264,6 +274,8 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.cbxGisServerUrl.FormattingEnabled = true;
             this.cbxGisServerUrl.Items.AddRange(new object[] {
+            "http://tile6.tianditu.com/tdt/DataServer?T=t_img_271224&X={POINTX}&Y={POINTY}&L=1" +
+                "8",
             "http://q8.baidu.com/it/u=x={POINTX};y={POINTY};z=16;v=014;type=web&fm=44",
             "http://q4.baidu.com/it/u=x={POINTX};y={POINTY};z=13;v=009;type=sate&fm=46",
             "http://p0.go2map.com/seamless1/0/174/717/3/1/{POINTX}_{POINTY}.png",
@@ -281,8 +293,8 @@
             this.cbxGisServerUrl.Name = "cbxGisServerUrl";
             this.cbxGisServerUrl.Size = new System.Drawing.Size(522, 20);
             this.cbxGisServerUrl.TabIndex = 1;
-            this.cbxGisServerUrl.Text = "http://mt0.google.cn/vt/lyrs=s@123&hl=zh-CN&gl=CN&src=app&x={POINTX}&y={POINTY}&z" +
-                "=19&s=Galil";
+            this.cbxGisServerUrl.Text = "http://tile6.tianditu.com/tdt/DataServer?T=t_img_271224&X={POINTX}&Y={POINTY}&L=1" +
+                "8";
             // 
             // label1
             // 

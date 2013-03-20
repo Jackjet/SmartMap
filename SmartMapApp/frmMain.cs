@@ -40,17 +40,25 @@ namespace Smart.Map.App
         {
             layerArea.UrlTemplate = cbxGisServerUrl.Text;
             layerArea.FragmentSize = new Smart.Map.Size() { Width = (float)numImageSize.Value, Height = (float)numImageSize.Value };
+            rtxLog.AppendText(string.Format("模板地址：{0}\r\n", layerArea.UrlTemplate));
+            rtxLog.AppendText(string.Format("瓦片大小：{0}X{1}\r\n", 
+                layerArea.FragmentSize.Width, 
+                layerArea.FragmentSize.Height));
 
             layerArea.Start = new Smart.Map.Vectory2D()
             {
                 X = (float)numStartPointX.Value,
                 Y = (float)numStartPointY.Value
             };
+            rtxLog.AppendText(string.Format("起始坐标：X:{0},Y:{1}\r\n", layerArea.Start.X, layerArea.Start.Y));
+
             layerArea.End = new Smart.Map.Vectory2D()
             {
                 X = (float)numEndPointX.Value,
                 Y = (float)numEndPointY.Value
             };
+            rtxLog.AppendText(string.Format("结束坐标：X:{0},Y:{1}\r\n", layerArea.End.X, layerArea.End.Y));
+
 
             layerArea.Download(txtCachePath.Text);
 

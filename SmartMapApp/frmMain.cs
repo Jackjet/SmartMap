@@ -38,41 +38,56 @@ namespace Smart.Map.App
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            layerArea.UrlTemplate = cbxGisServerUrl.Text;
-            layerArea.FragmentSize = new Smart.Map.Size() { Width = (float)numImageSize.Value, Height = (float)numImageSize.Value };
-            rtxLog.AppendText(string.Format("模板地址：{0}\r\n", layerArea.UrlTemplate));
-            rtxLog.AppendText(string.Format("瓦片大小：{0}X{1}\r\n", 
-                layerArea.FragmentSize.Width, 
-                layerArea.FragmentSize.Height));
-
-            layerArea.Start = new Smart.Map.Vectory2D()
+            try
             {
-                X = (float)numStartPointX.Value,
-                Y = (float)numStartPointY.Value
-            };
-            rtxLog.AppendText(string.Format("起始坐标：X:{0},Y:{1}\r\n", layerArea.Start.X, layerArea.Start.Y));
+                layerArea.UrlTemplate = cbxGisServerUrl.Text;
+                layerArea.FragmentSize = new Smart.Map.Size() { Width = (float)numImageSize.Value, Height = (float)numImageSize.Value };
+                rtxLog.AppendText(string.Format("模板地址：{0}\r\n", layerArea.UrlTemplate));
+                rtxLog.AppendText(string.Format("瓦片大小：{0}X{1}\r\n",
+                    layerArea.FragmentSize.Width,
+                    layerArea.FragmentSize.Height));
 
-            layerArea.End = new Smart.Map.Vectory2D()
-            {
-                X = (float)numEndPointX.Value,
-                Y = (float)numEndPointY.Value
-            };
-            rtxLog.AppendText(string.Format("结束坐标：X:{0},Y:{1}\r\n", layerArea.End.X, layerArea.End.Y));
+                layerArea.Start = new Smart.Map.Vectory2D()
+                {
+                    X = (float)numStartPointX.Value,
+                    Y = (float)numStartPointY.Value
+                };
+                rtxLog.AppendText(string.Format("起始坐标：X:{0},Y:{1}\r\n", layerArea.Start.X, layerArea.Start.Y));
+
+                layerArea.End = new Smart.Map.Vectory2D()
+                {
+                    X = (float)numEndPointX.Value,
+                    Y = (float)numEndPointY.Value
+                };
+                rtxLog.AppendText(string.Format("结束坐标：X:{0},Y:{1}\r\n", layerArea.End.X, layerArea.End.Y));
 
 
-            layerArea.Download(txtCachePath.Text);
+                layerArea.Download(txtCachePath.Text);
 
-            string filename = string.Format("{0}\\{1}.{2}",
-                txtSavePath.Text,
-                Guid.NewGuid().ToString(),
-                ImageFormat.Png);
-            if (cbxZorePoint.Text == "左上角")
-            {
-                layerArea.Compose(filename, ImageFormat.Png, Smart.Map.ZeroPoint.LeftTop);
+                string filename = string.Format("{0}\\{1}.{2}",
+                    txtSavePath.Text,
+                    Guid.NewGuid().ToString(),
+                    ImageFormat.Png);
+                if (cbxZorePoint.Text == "左上角")
+                {
+                    rtxLog.AppendText("原点坐标：左上角\r\n");
+                    layerArea.Compose(filename, ImageFormat.Png, Smart.Map.ZeroPoint.LeftTop);
+                }
+                else
+                {
+                    rtxLog.AppendText("原点坐标：左下角\r\n");
+                    layerArea.Compose(filename, ImageFormat.Png, Smart.Map.ZeroPoint.LeftBottom);
+                }
+                rtxLog.AppendText("拼接成功.\r\n\r\n");
             }
-            else
+            catch (Exception ex)
             {
-                layerArea.Compose(filename, ImageFormat.Png, Smart.Map.ZeroPoint.LeftBottom);
+                string error = string.Format("消息：{0}\r\n对象：{1}\r\n堆栈：{2}\r\n方法：{3}",
+                    ex.Message,
+                    ex.Source,
+                    ex.StackTrace,
+                    ex.TargetSite.Name);
+                rtxLog.AppendText(error + "\r\n\r\n");
             }
         }
 
